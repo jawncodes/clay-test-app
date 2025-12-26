@@ -34,10 +34,11 @@ A Next.js web application with passwordless authentication, user enrichment via 
 npm install
 ```
 
-2. Create a `.env.local` file in the root directory with your Clay.com webhook authentication token (see `.env.example` for reference):
+2. Create a `.env.local` file in the root directory with your Clay.com webhook configuration (see `.env.example` for reference):
 
 ```bash
-CLAY_WEBHOOK_AUTH=your-clay-webhook-auth-token-here
+CLAY_WEBHOOK_URL=https://api.clay.com/v3/sources/webhook/<YOUR_CLAY_WEBHOOK_ID_HERE>
+CLAY_WEBHOOK_AUTH=<YOUR_CLAY_WEBHOOK_AUTH_TOKEN_HERE>
 ```
 
 3. Run the development server:

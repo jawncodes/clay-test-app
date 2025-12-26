@@ -1,8 +1,12 @@
-const CLAY_WEBHOOK_URL = 'https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-6449f27b-e3ef-4d8c-8887-f2eee6c446e2';
-
 export async function enrichUserData(inputData: string | Record<string, any>): Promise<boolean> {
   try {
+    const webhookUrl = process.env.CLAY_WEBHOOK_URL;
     const authHeader = process.env.CLAY_WEBHOOK_AUTH;
+
+    if (!webhookUrl) {
+      console.error('CLAY_WEBHOOK_URL environment variable is not set');
+      return false;
+    }
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
@@ -73,14 +77,14 @@ export async function enrichUserData(inputData: string | Record<string, any>): P
     
     // Log the payload being sent (for debugging)
     console.log('=== CLAY WEBHOOK REQUEST ===');
-    console.log('URL:', CLAY_WEBHOOK_URL);
+    console.log('URL:', webhookUrl);
     console.log('Headers:', JSON.stringify(headers, null, 2));
     console.log('Payload object:', JSON.stringify(payload, null, 2));
     console.log('Payload string:', payloadString);
     console.log('Payload string type:', typeof payloadString);
     console.log('Payload string length:', payloadString.length);
 
-    const response = await fetch(CLAY_WEBHOOK_URL, {
+    const response = await fetch(webhookUrl, {
       method: 'POST',
       headers,
       body: payloadString,
